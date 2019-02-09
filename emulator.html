@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Phone Emulator</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<style type="text/css">
+			#phone_screen {
+				width: 100%;
+				height: 200px;
+				border: 2px solid #000;
+				margin-right: auto;
+				margin-left: auto;
+			}
+
+			#pin_screen {
+				width: 80%;
+				border: 2px solid #000;
+				font-size: ;
+				font-weight: bold;
+				letter-spacing: 2px;
+			}
+
+			.btn-danger {
+				width: 100%;
+				border-radius: 0;
+				font-size: 18px;
+				font-weight: bold;
+				background: #000;
+			}
+
+			.btn-danger:hover {
+				background: #333;
+			}
+
+			#phone_name {
+				font-size: 18px;
+				letter-spacing: 2px;
+				color: #aaa;
+			}
+
+			#right_btn {
+				margin-left: 13%;
+			}
+
+			.red_btn {
+				background: #b30202;
+				color: #fff;
+				border-color: #000;
+			}
+
+			.panel {
+				border: 4px ridge #b30202;
+			}
+
+			.panel-body {
+				background: #000;
+			}
+		</style>
+	</head>
+	<body onload="disable()">
+		<br />
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					
+				</div>
+
+				<div class="col-md-4 text-center">
+					<div class="panel panel-danger">
+						<!-- <div class="panel-heading">
+							<h3>PHONE EMULATOR</h3>
+						</div> -->
+						<div class="panel-body">
+							<div>
+								<textarea style="resize: none;" id="phone_screen"></textarea>
+								<p id="phone_name"><b>TECNO</b></p>
+							</div>
+							<table class="table table-bordered" id="calc_btn">
+								<tr>
+									<td><button class="btn btn-danger dsb" onclick="">---</button></td>
+									<td rowspan="2">
+										<div class="row">
+											<div class="col-md-12"><button class="red_btn"><span class="glyphicon glyphicon-arrow-up"></span></button></div>
+											<div class="col-md-12">
+												<div class="row">
+													<div class="col-md-4 col-sm-4 col-xs-4"><button class="red_btn"><span class="glyphicon glyphicon-arrow-left"></span></button></div>
+													
+													<div class="col-md-4 col-sm-4 col-xs-4" id="right_btn"><button class="red_btn"><span class="glyphicon glyphicon-arrow-right"></span></button></div>
+												</div>
+											</div>
+											<div class="col-md-12"><button class="red_btn"><span class="glyphicon glyphicon-arrow-down"></span></button></div>
+										</div>
+									</td>
+									<td><button class="btn btn-danger dsb" onclick="del()">---</button></td>
+								</tr>
+								<tr>
+									<td><button class="btn btn-danger dsb" onclick="recharge()"><span class="glyphicon glyphicon-earphone"></span></button></td>
+									<td><button class="btn btn-danger dsb" onclick="clears()"><span class="glyphicon glyphicon-ban-circle"></span></button></td>
+								</tr>
+								<tr>
+									<td><button class="btn btn-danger dsb" onclick="btn1('1')">1 .,</button></td>
+									<td><button class="btn btn-danger dsb" onclick="btn1('2')">2 ABC</button></td>
+									<td><button class="btn btn-danger dsb" onclick="btn1('3')">3 DEF</button></td>
+								</tr>
+								<tr>
+									<td><button class="btn btn-danger dsb" onclick="btn1('4')" id="btn1">4 GHI</button></td>
+									<td><button class="btn btn-danger dsb" onclick="btn1('5')">5 JKL</button></td>
+									<td><button class="btn btn-danger dsb" onclick="btn1('6')">6 MNO</button></td>
+								</tr>
+								<tr>
+									<td><button class="btn btn-danger dsb" onclick="btn1('7')">7 PQRS</button></td>
+									<td><button class="btn btn-danger dsb" onclick="btn1('8')">8 TUV</button></td>
+									<td><button class="btn btn-danger dsb" onclick="btn1('9')">9 WXYZ</button></td>
+								</tr>
+								<tr>
+									<td><button class="btn btn-danger dsb" onclick="btn1('*')">* <span class="glyphicon glyphicon-lock"></span></button></td>
+									<td><button class="btn btn-danger dsb" onclick="btn1('0')">0 +</button></td>
+									<td><button class="btn btn-danger dsb" onclick="btn1('#')"># \\<span class="glyphicon glyphicon-phone"></span>\\</button></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div>
+						<center><input type="text" name="" id="pin_to_generate"></center>
+						<br />
+						<center><button class="btn btn-warning" id="pin_btn">Generate Pin</button></center>
+						<br />
+						<center><div id="pin_screen"></div></center>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+	</body>
+</html>
+
+<script>
+	var nw="";
+	function btn1(param){
+		document.getElementById("phone_screen").value += param;
+	}
+
+	function del(){
+		var txt = document.getElementById("phone_screen").value;
+		var del = document.getElementById("phone_screen").value = txt.length-1;
+		document.getElementById("phone_screen").value = txt.slice(0,del);
+	}
+
+	var generate_pin = document.getElementById("pin_btn");
+	generate_pin.addEventListener("click", generator);
+
+	var no_of_pin;
+	var pins = [];
+
+	function generator(){
+		no_of_pin = document.getElementById("pin_to_generate").value;
+
+		for (var i = 0; i < no_of_pin; i++) 
+		{
+			var network = ["MTN", "GLO"];
+			var x = Math.floor(Math.random()*2);
+			var main_net = network[x];
+
+	     	g=Math.floor(Math.random()*10000000000000000);
+
+	     	nw+=g;
+	     	sub=nw.substr(0,15);
+	     	div=sub.substr(0,4)+"-"+sub.substr(4,4)+"-"+sub.substr(8,4)+"-"+sub.substr(12,3);
+
+		    pins.push({network:main_net,card:sub});
+		    //var outp = JSON.stringify(pins);
+		    var outp = pins;
+
+			document.getElementById("pin_screen").innerHTML += div+"<br>";
+			sub="";
+			div="";	
+			nw="";
+
+			var pinStore = localStorage.setItem("myPins", outp);
+			var getPin = localStorage.getItem("myPins");
+		}
+	}
+
+	function recharge(){
+		var mtn_pre = "*555*";
+		var glo_pre = "*123*";
+		var intended_card;
+		var validity = false;
+		var l = localStorage.getItem("myPins");
+
+		alert(JSON.stringify(l));
+
+		var recharge_card_value = document.getElementById("phone_screen").value;
+		var recharge_prefix = recharge_card_value.substr(0,5);
+		var recharge_card = recharge_card_value.substr(5,15);
+		var recharge_suffix = recharge_card_value.substr(20,21);
+		var check = false;
+
+		for(r=0; r<l.length; r++){
+			if(recharge_card == l[r].card){
+				alert(recharge_card);
+				alert(l[r]);
+				check = true;
+				var card_net = l[r].network;
+				alert(card_net);
+				break
+			}else{
+				check = false;
+			}
+		}
+
+		// for(r=0; r<pins.length; r++){
+		// 	if(recharge_card == pins[r].card){
+		// 		check = true;
+		// 		var card_net = pins[r].network;
+
+		// 		alert(card_net);
+		// 		break;
+		// 	}else{
+		// 		check = false;
+		// 	}
+		// }
+
+		if(recharge_prefix == "*555*" && recharge_suffix == "#"){
+			intended_card = "MTN";
+			validity = true;
+		}else if(recharge_prefix == "*123*" && recharge_suffix == "#"){
+			intended_card = "GLO";
+			validity = true;
+		}
+
+		if(check == true && intended_card == card_net && validity == true){
+			document.getElementById("phone_screen").value = "Successful";
+		}else{
+			document.getElementById("phone_screen").value = "Incorrect";
+		}
+	}
+</script>
